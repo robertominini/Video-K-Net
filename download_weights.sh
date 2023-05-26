@@ -1,0 +1,1 @@
+wget https://public.ph.files.1drv.com/y4m5Q_3CseDT5zunWTBdRXJ_6f3f-ZkRStuApiC0iGLX_b2VRnVCwlLl0SSKdJzAzR4pv_1n5-Ks8-kb33uUQzUC4O9YfMynYBvaEbZk2bJKS5PcK2uYwZVaJPjWgYGxqYf-C-sRIb9MOl0hTHm3dgYlDJqktD9iuhDKJqqVcG2L7BBCWqFwN5ZLfzGDtERQrJPR4XxGE3d6Ud5fi6yHWa2hAJrEGmezUMzGCnkXKar73Y -O "./weights/knet_city_step_pan_r50.pth" 
