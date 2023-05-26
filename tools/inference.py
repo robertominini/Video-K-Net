@@ -230,6 +230,7 @@ def main():
         init_dist(args.launcher, **cfg.dist_params)
 
     # build the dataloader
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", cfg.data.test)
     dataset = build_dataset(cfg.data.test)
     data_loader = build_dataloader(
         dataset,

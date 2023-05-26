@@ -4,7 +4,7 @@ import six
 import os
 import multiprocessing as mp
 import argparse
-
+import pandas as pd
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('result_path')
 parser.add_argument('--eval_frames', type=int, default=1)
@@ -142,6 +142,9 @@ def eval(element):
 
 
 def main():
+    pq_l = []
+    tpq_l = []
+    spq_l = []
     gt_names_all = os.scandir(gt_dir)
     gt_names_all = [name.name for name in gt_names_all if 'panoptic' in name.name]
     gt_names_all = [os.path.join(gt_dir, name) for name in gt_names_all]
@@ -220,6 +223,9 @@ def main():
                 pq.mean() * 100,
                 tpq.mean() * 100,
                 spq.mean() * 100))
+        pq_l.append(pq.mean() * 100)
+        tpq_l.append(tpq.mean() * 100)
+        spq_l.append(spq.mean() * 100)
 
     print("----------------final-----------------")
     iou_per_class_all = np.concatenate(iou_per_class_all, axis=0).sum(axis=0)[:19]
@@ -238,6 +244,15 @@ def main():
             pq.mean() * 100,
             tpq.mean() * 100,
             spq.mean() * 100))
+    pq_l.append(pq.mean() * 100)
+    tpq_l.append(tpq.mean() * 100)
+    spq_l.append(spq.mean() * 100)
+    
+    df = pd.DataFrame({"pq": pq_l, "tpq": tpq_l ,"spq": spq_l})
+    index_list = [2, 6, 7, 8, 10, 13, 14, 16, 18, "final"]
+    df.index = index_list
+    df.index.name = "video_sequence"
+    df.to_csv(os.path.join(args.result_path, "vpq_results.csv"))
 
 
 if __name__ == '__main__':

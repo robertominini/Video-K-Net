@@ -5,9 +5,9 @@ import mmcv
 import numpy as np
 import torch
 from mmcv import ProgressBar
-
+import json
 import torch.nn.functional as F
-
+import pandas as pd
 from tools.utils.DSTQ import DSTQuality
 from tools.utils.STQ import STQuality
 
@@ -115,6 +115,9 @@ def eval_dstq(result_dir, gt_dir, seq_ids, with_depth=True):
                 seq_id
             )
     result = dstq_obj.result()
+    result = {k: v.tolist() if isinstance(v, np.ndarray) else v for k, v in result.items()}
+    with open(os.path.join(args.result_path, 'stq_results.json'), 'w') as f:
+        json.dump(result, f)
     print(result)
 
 
@@ -124,3 +127,4 @@ if __name__ == '__main__':
     gt_path = args.gt_path
     split = args.split
     eval_dstq(result_path, os.path.join(gt_path, 'video_sequence', split), [2, 6, 7, 8, 10, 13, 14, 16, 18], args.depth)
+    # eval_dstq(result_path, os.path.join(gt_path, 'video_sequence', split), [2], args.depth)

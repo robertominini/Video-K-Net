@@ -1,0 +1,7 @@
+VIDEO_PATH=$1
+RESULT_PATH=$2
+FRAME_RATE=$3
+SECONDS_TO_EXTRACT=$4
+
+rm ./frames/* #clean frames
+python ./extract_frames.py $VIDEO_PATH $RESULT_PATH $FRAME_RATE $SECONDS_TO_EXTRACT

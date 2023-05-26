@@ -15,7 +15,7 @@ checkpoint_config = dict(interval=1)
 log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-load_from = 'pretrained/knet_city_step_pan_r50.pth'
+load_from = './weights/knet_city_step_pan_r50.pth'
 resume_from = None
 workflow = [('train', 1)]
 num_stages = 3
@@ -316,7 +316,8 @@ custom_imports = dict(
         'knet.det.kernel_update_head', 'knet.det.semantic_fpn_wrapper',
         'knet.det.dice_loss', 'knet.det.mask_hungarian_assigner',
         'knet.det.mask_pseudo_sampler', 'knet.kernel_updator',
-        'knet.cross_entropy_loss', 'external.cityscapes_step', 'external.kitti_step_dvps',
+        'knet.cross_entropy_loss', 'external.cityscapes_step',
+        'external.kitti_step_dvps',
         'external.dataset.dvps_pipelines.transforms',
         'external.dataset.dvps_pipelines.loading',
         'external.dataset.dvps_pipelines.tricks',
@@ -474,7 +475,7 @@ data = dict(
         with_depth=False),
     test=dict(
         type='KITTISTEPDVPSDataset',
-        data_root='data/inference_folder',
+        data_root='data/kitti-step',
         split='val',
         ref_seq_index=None,
         test_mode=True,
@@ -509,5 +510,5 @@ num_thing_classes = 2
 num_stuff_classes = 17
 num_classes = 19
 find_unused_parameters = True
-work_dir = 'runs/video_knet_step-pretrained'
-gpu_ids = range(0, 3)
+work_dir = './risultati'
+gpu_ids = range(0, 1)
